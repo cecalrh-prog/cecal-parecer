@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parecer de Entrevista — CECAL & DADI</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:13px;color:#333;background:#EAECF4;min-height:100vh}
+.topbar{background:#282C63;color:#fff;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.topbar-logo{background:#C00000;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px}
+.topbar-title{font-size:13px;font-weight:700;color:#fff}
+.topbar-sub{font-size:10px;color:#AABBDD}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.mode-badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px}
+.mode-badge.rh{background:#4CAF50;color:#fff}
+.mode-badge.gestor{background:#C00000;color:#fff}
+.btn{font-size:12px;font-weight:700;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;transition:opacity .2s}
+.btn:hover{opacity:.85}
+.btn-white{background:#fff;color:#282C63}
+.btn-red{background:#C00000;color:#fff}
+.btn-green{background:#2E7D32;color:#fff}
+.btn-gray{background:#666;color:#fff}
+.wrapper{max-width:780px;margin:20px auto;padding:0 16px 40px}
+.mode-switcher{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;border:2px solid #282C63;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.mode-switcher h3{font-size:14px;color:#282C63;margin-bottom:10px;font-weight:700}
+.mode-tabs{display:flex;gap:8px}
+.mode-tab{flex:1;padding:10px;border-radius:8px;border:2px solid #DDD;cursor:pointer;text-align:center;font-size:12px;font-weight:700;color:#666;transition:all .2s;background:#F5F5F5}
+.mode-tab.active.rh{border-color:#282C63;background:#282C63;color:#fff}
+.mode-tab.active.gestor{border-color:#C00000;background:#C00000;color:#fff}
+.mode-tab:hover{opacity:.8}
+.mode-desc{font-size:11px;color:#666;margin-top:8px;font-style:italic}
+.card{background:#fff;border-radius:10px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.card-head{padding:10px 16px;display:flex;align-items:center;gap:8px}
+.card-head.navy{background:#282C63}
+.card-head.red{background:#C00000}
+.card-head.green{background:#2E7D32}
+.card-head.amber{background:#854F0B}
+.card-head.gray{background:#555}
+.card-num{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.2);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-info .title{font-size:13px;font-weight:700;color:#fff}
+.card-info .sub{font-size:10px;color:rgba(255,255,255,0.7);margin-top:1px}
+.card-body{padding:14px 16px}
+.readonly-notice{background:#FFF8E1;border-left:3px solid #F9A825;padding:7px 12px;border-radius:0 4px 4px 0;font-size:11px;color:#5D4037;margin-bottom:12px;font-style:italic}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.field-row.single{grid-template-columns:1fr}
+.field-group label{font-size:11px;font-weight:700;color:#282C63;display:block;margin-bottom:3px}
+.field-group input,.field-group select{width:100%;border:none;border-bottom:1.5px solid #DDDDDD;padding:5px 2px;font-size:13px;font-family:Arial,sans-serif;color:#333;background:transparent;outline:none;transition:border-color .2s}
+.field-group input:focus,.field-group select:focus{border-bottom-color:#282C63}
+.field-group input:read-only,.field-group select:disabled{color:#555;background:#F9F9F9;cursor:default;border-bottom-style:dashed}
+.score-table{width:100%;border-collapse:collapse;margin-bottom:8px}
+.score-table th{background:#282C63;color:#fff;text-align:center;font-size:11px;padding:6px 3px;border:1px solid #3a4080;line-height:1.3}
+.score-table th.crit{text-align:left;padding:6px 10px;width:38%}
+.score-table td{border:1px solid #EEEEEE;padding:5px 3px;text-align:center;vertical-align:middle}
+.score-table td.crit{text-align:left;padding:5px 10px;font-size:12px;color:#444}
+.score-table tr:nth-child(even) td{background:#F8F8F8}
+.score-table tr:nth-child(odd) td{background:#fff}
+.score-table input[type=radio]{accent-color:#C00000;width:15px;height:15px;cursor:pointer}
+.score-table input[type=radio]:disabled{accent-color:#999;cursor:default}
+.legend{font-size:10.5px;color:#888;font-style:italic;margin-bottom:8px}
+.fit-table th{background:#282C63}
+.conclusao{background:#F5F5F5;border-radius:6px;padding:10px 12px;margin-top:8px}
+.conclusao label{font-size:11px;color:#555;margin-bottom:4px;display:block;font-weight:700}
+.conclusao .opts{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px}
+.conclusao .opt{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;cursor:pointer}
+.conclusao .opt input{width:14px;height:14px}
+.opt.green{color:#2E7D32}
+.opt.amber{color:#BF6900}
+.opt.red-c{color:#C00000}
+.just-label{font-size:11px;font-weight:700;color:#282C63;font-style:italic;margin:10px 0 4px}
+.just-area{width:100%;resize:vertical;border:1px solid #EEE;border-radius:4px;font-size:12px;font-family:Arial,sans-serif;color:#333;background:transparent;outline:none;padding:7px 9px;min-height:60px;line-height:1.7}
+.just-area:read-only{background:#F9F9F9;color:#555;cursor:default}
+.pct-row{display:flex;align-items:center;gap:10px;margin-top:6px}
+.pct-bar-wrap{display:flex;flex-direction:column}
+.pct-bar{height:7px;border-radius:4px;transition:width .4s,background .4s;min-width:4px}
+.pct-val{font-size:12px;font-weight:700}
+.score-box{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;padding:4px 10px;min-width:72px;border:2px solid;margin-right:6px}
+.score-box .score-num{font-size:22px;font-weight:700;line-height:1}
+.score-box .score-lbl{font-size:9px;font-weight:700;margin-top:2px;letter-spacing:.5px}
+.score-box .score-max{font-size:9px;font-weight:400;opacity:.7}
+.score-summary{background:#F5F5F7;border-radius:10px;padding:10px 14px;margin-top:12px;border:1px solid var(--border)}
+.score-summary-title{font-size:12px;font-weight:700;color:#282C63;margin-bottom:8px}
+.score-summary-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.score-summary-label{font-size:11px;color:var(--text-secondary);min-width:160px}
+.score-mini-bar{height:5px;border-radius:3px;flex:1;min-width:60px;max-width:140px;background:#DDD;transition:width .4s,background .4s}
+.score-summary-pct{font-size:11px;font-weight:700;min-width:36px}
+.total-score-box{background:#282C63;color:#fff;border-radius:8px;padding:8px 16px;display:inline-flex;align-items:center;gap:10px;margin-top:6px}
+.total-score-num{font-size:28px;font-weight:700;line-height:1}
+.total-score-sub{font-size:10px;opacity:.8}
+.aderencia-box{background:#F5F5F5;border-radius:6px;padding:8px 12px;margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.aderencia-lbl{font-size:12px;font-weight:700;color:#282C63}
+.aderencia-badge{font-size:12px;font-weight:700;padding:3px 12px;border-radius:20px}
+.action-bar{background:#fff;border-radius:10px;padding:14px 16px;margin-top:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.action-bar h3{font-size:13px;font-weight:700;color:#282C63;margin-bottom:10px}
+.action-btns{display:flex;gap:8px;flex-wrap:wrap}
+.email-input{width:100%;border:1.5px solid #DDD;border-radius:6px;padding:8px 10px;font-size:12px;font-family:Arial,sans-serif;margin-top:8px;outline:none}
+.email-input:focus{border-color:#282C63}
+.assin{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.assin-box{border:1px solid #DDD;border-radius:6px;padding:10px 12px}
+.assin-role{font-size:12px;font-weight:700;color:#282C63;margin-bottom:8px}
+.sign-line{border-bottom:1px solid #DDD;margin:20px 0 6px}
+.assin-field{font-size:11px;color:#666;margin-bottom:4px}
+.footer{text-align:center;font-size:10px;color:#999;margin-top:20px}
+@page{size:A4 portrait;margin:8mm 10mm}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .topbar,.mode-switcher,.action-bar,.no-print,#card-score{display:none!important}
+  html,body{margin:0;padding:0;background:#fff;width:210mm}
+  .wrapper{margin:0!important;padding:0!important;max-width:100%!important}
+  .card{box-shadow:none!important;border:0.5px solid #CCC!important;margin-bottom:4px!important;border-radius:4px!important;page-break-inside:avoid}
+  .card-head{padding:5px 10px!important}
+  .card-head .title{font-size:10px!important}
+  .card-head .sub{font-size:8px!important}
+  .card-num{width:18px!important;height:18px!important;font-size:9px!important}
+  .card-body{padding:6px 10px!important}
+  .field-group label{font-size:9px!important;margin-bottom:1px!important}
+  .field-group input,.field-group select{font-size:10px!important;padding:2px 0!important}
+  .field-row{gap:6px!important;margin-bottom:5px!important}
+  .score-table th{padding:3px 2px!important;font-size:8px!important}
+  .score-table td{padding:3px 2px!important;font-size:8px!important}
+  .score-table td.crit,.score-table th.crit{padding:3px 6px!important;font-size:8px!important}
+  .legend{font-size:8px!important;margin-bottom:4px!important}
+  .conclusao{padding:5px 8px!important;margin-top:4px!important}
+  .conclusao label{font-size:8px!important;margin-bottom:2px!important}
+  .conclusao .opts{gap:8px!important}
+  .conclusao .opt{font-size:9px!important}
+  .just-label{font-size:8px!important;margin:4px 0 2px!important}
+  .just-area{min-height:28px!important;font-size:9px!important;padding:2px 4px!important}
+  .pct-row{display:none!important}
+  .aderencia-box{padding:4px 8px!important;margin-top:4px!important}
+  .aderencia-lbl{font-size:8px!important}
+  .aderencia-badge{font-size:9px!important;padding:1px 6px!important}
+  .readonly-notice{display:none!important}
+  .assin{gap:6px!important;margin-top:6px!important}
+  .assin-box{padding:6px 8px!important}
+  .assin-role{font-size:9px!important;margin-bottom:4px!important}
+  .sign-line{margin:12px 0 4px!important}
+  .assin-field{font-size:8px!important;margin-bottom:2px!important}
+  .score-box{display:none!important}
+  #card-score{display:none!important}
+  /* Compact fit cultural */
+  .fit-table th{padding:3px 2px!important;font-size:7.5px!important}
+  /* Print header strip */
+  .print-header{display:flex!important}
+}
+.print-header{display:none}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">CECAL & DADI</div>
+    <div>
+      <div class="topbar-title">Parecer de Entrevista</div>
+      <div class="topbar-sub">Departamento de Recursos Humanos</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span class="mode-badge" id="topbadge">Modo RH</span>
+    <button class="btn btn-white no-print" onclick="salvarPDF()">🖨 Salvar como PDF</button>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- CABEÇALHO VISÍVEL APENAS NO PDF -->
+  <div class="print-header" style="background:#282C63;color:#fff;padding:7px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;border-radius:6px">
+    <div>
+      <div style="font-size:13px;font-weight:700">CECAL & DADI</div>
+      <div style="font-size:9px;opacity:.7">Departamento de Recursos Humanos  |  Recrutamento e Seleção</div>
+    </div>
+    <div style="text-align:right;background:#C00000;padding:5px 10px;border-radius:4px">
+      <div style="font-size:11px;font-weight:700">PARECER DE ENTREVISTA</div>
+      <div style="font-size:8px;opacity:.8">FORM-RH-___  |  Rev. 01  |  Confidencial</div>
+    </div>
+  </div>
+
+  <!-- SELETOR DE MODO -->
+  <div class="mode-switcher no-print">
+    <h3>Selecione o modo de preenchimento</h3>
+    <div class="mode-tabs">
+      <div class="mode-tab active rh" id="tab-rh" onclick="setMode('rh')">
+        👩‍💼 Modo RH<br><span style="font-size:10px;font-weight:400">Preenche seções 1, 2, 3 e 5</span>
+      </div>
+      <div class="mode-tab gestor" id="tab-gestor" onclick="setMode('gestor')">
+        👔 Modo Gestor<br><span style="font-size:10px;font-weight:400">Preenche apenas seção 4 — Técnica</span>
+      </div>
+    </div>
+    <div id="banner-local" style="background:#FFF3CD;border:1px solid #F9A825;border-radius:6px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:#5D4037;display:none">
+      <strong>⚠️ Arquivo local detectado — o link não funcionará no celular do gestor.</strong><br>
+      Para gerar um link que funcione em qualquer dispositivo, hospede gratuitamente em 1 minuto:<br>
+      1. Acesse <a href="https://app.netlify.com/drop" target="_blank" style="color:#C00000;font-weight:700">app.netlify.com/drop</a><br>
+      2. Arraste este arquivo HTML para a área indicada<br>
+      3. Copie o link gerado (ex: <em>https://nome-aleatorio.netlify.app</em>) e use-o no lugar do arquivo local
+    </div>
+    <div class="mode-desc" id="mode-desc">Você está no modo RH. Preencha as seções 1, 2 e 3. Depois clique em "Gerar link para o gestor" para enviar a parte técnica.</div>
+  </div>
+
+  <!-- 1. IDENTIFICAÇÃO -->
+  <div class="card">
+    <div class="card-head navy">
+      <div class="card-num">1</div>
+      <div class="card-info"><div class="title">Identificação</div><div class="sub">Preenchido pelo RH</div></div>
+    </div>
+    <div class="card-body">
+      <div class="field-row">
+        <div class="field-group"><label>Cargo / Vaga *</label><input id="cargo" type="text" oninput="save()"></div>
+        <div class="field-group"><label>Data da entrevista *</label><input id="data" type="date" oninput="save()"></div>
+      </div>
+      <div class="field-row single">
+        <div class="field-group"><label>Nome do(a) candidato(a) *</label><input id="candidato" type="text" oninput="save()"></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group"><label>Unidade *</label>
+          <select id="unidade" onchange="save()">
+            <option value="">Selecione</option>
+            <option>Matriz</option>
+            <option>CECAL Distribuidora</option>
+            <option>CECAL Loja 1</option>
+            <option>Fábrica Dadi</option>
+          </select>
+        </div>
+        <div class="field-group"><label>Nível hierárquico *</label>
+          <select id="nivel" onchange="save()">
+            <option value="">Selecione</option>
+            <option>Operacional</option>
+            <option>Tático</option>
+            <option>Estratégico</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row single">
+        <div class="field-group"><label>Entrevistador(a) — RH *</label><input id="entrevistador" type="text" oninput="save()"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. COMPORTAMENTAL -->
+  <div class="card" id="card-comp">
+    <div class="card-head navy">
+      <div class="card-num">2</div>
+      <div class="card-info"><div class="title">Avaliação Comportamental</div><div class="sub">Preenchido pelo RH</div></div>
+    </div>
+    <div class="card-body">
+      <div class="readonly-notice" id="notice-comp" style="display:none">🔒 Seção preenchida pelo RH — somente leitura</div>
+      <div class="legend">1 = Insatisfatório · 2 = Abaixo do esperado · 3 = Atende às expectativas · 4 = Acima do esperado · 5 = Excelente</div>
+      <table class="score-table">
+        <thead><tr>
+          <th class="crit">Critério avaliado</th>
+          <th>1<br><span style="font-size:9px;font-weight:400">Insatisfatório</span></th>
+          <th>2<br><span style="font-size:9px;font-weight:400">Abaixo</span></th>
+          <th>3<br><span style="font-size:9px;font-weight:400">Atende</span></th>
+          <th>4<br><span style="font-size:9px;font-weight:400">Acima</span></th>
+          <th>5<br><span style="font-size:9px;font-weight:400">Excelente</span></th>
+        </tr></thead>
+        <tbody id="tbody-comp"></tbody>
+      </table>
+      <div class="pct-row" style="align-items:flex-start;gap:12px;flex-wrap:wrap">
+        <div class="score-box" id="score-comp" style="border-color:#DDD;background:#F5F5F5">
+          <span class="score-num" style="color:#888">—</span>
+          <span class="score-max" style="color:#888">/ 100</span>
+          <span class="score-lbl" style="color:#888">Aguardando</span>
+        </div>
+        <div class="pct-bar-wrap">
+          <span style="font-size:10px;color:#888">Aderência comportamental</span>
+          <span class="pct-val" id="pct-comp-val" style="color:#888">—</span>
+          <div class="pct-bar" id="pct-comp-bar" style="width:4px;background:#DDD;width:120px"></div>
+        </div>
+      </div>
+      <div class="conclusao">
+        <label>Conclusão — Avaliação Comportamental:</label>
+        <div class="opts">
+          <label class="opt green"><input type="radio" name="dec-comp" value="Aprovado(a)" onchange="save()"> Aprovado(a)</label>
+          <label class="opt amber"><input type="radio" name="dec-comp" value="Aprovado(a) com ressalvas" onchange="save()"> Aprovado(a) com ressalvas</label>
+          <label class="opt red-c"><input type="radio" name="dec-comp" value="Reprovado(a)" onchange="save()"> Reprovado(a)</label>
+        </div>
+      </div>
+      <div class="just-label">Justificativa / Breve relato:</div>
+      <textarea class="just-area" id="just-comp" rows="3" oninput="save()"></textarea>
+    </div>
+  </div>
+
+  <!-- 3. FIT CULTURAL -->
+  <div class="card" id="card-fit">
+    <div class="card-head navy">
+      <div class="card-num">3</div>
+      <div class="card-info"><div class="title">Fit Cultural</div><div class="sub">Preenchido pelo RH</div></div>
+    </div>
+    <div class="card-body">
+      <div class="readonly-notice" id="notice-fit" style="display:none">🔒 Seção preenchida pelo RH — somente leitura</div>
+      <div class="legend">1 = Não aderente · 2 = Pouco aderente · 3 = Aderente · 4 = Muito aderente · 5 = Pleno alinhamento</div>
+      <table class="score-table fit-table">
+        <thead><tr>
+          <th class="crit">Valor / Comportamento CECAL</th>
+          <th>1<br><span style="font-size:9px;font-weight:400">Não aderente</span></th>
+          <th>2<br><span style="font-size:9px;font-weight:400">Pouco</span></th>
+          <th>3<br><span style="font-size:9px;font-weight:400">Aderente</span></th>
+          <th>4<br><span style="font-size:9px;font-weight:400">Muito</span></th>
+          <th>5<br><span style="font-size:9px;font-weight:400">Pleno</span></th>
+        </tr></thead>
+        <tbody id="tbody-fit"></tbody>
+      </table>
+      <div class="aderencia-box">
+        <span class="aderencia-lbl">Aderência cultural geral:</span>
+        <div class="pct-bar-wrap">
+          <span class="pct-val" id="pct-fit-val" style="color:#888">—</span>
+          <div class="pct-bar" id="pct-fit-bar" style="width:4px;background:#DDD;width:100px"></div>
+        </div>
+        <span class="aderencia-badge" id="fit-badge" style="background:#EEE;color:#888">Aguardando…</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. TÉCNICA -->
+  <div class="card" id="card-tec">
+    <div class="card-head red">
+      <div class="card-num">4</div>
+      <div class="card-info"><div class="title">Entrevista Técnica</div><div class="sub">Preenchido pelo Gestor Requisitante</div></div>
+    </div>
+    <div class="card-body">
+      <div class="readonly-notice" id="notice-tec" style="display:none">🔒 Esta seção é preenchida pelo gestor requisitante</div>
+      <div class="legend">1 = Insatisfatório · 2 = Abaixo do esperado · 3 = Atende às expectativas · 4 = Acima do esperado · 5 = Excelente</div>
+      <div class="field-row single" style="margin-bottom:10px">
+        <div class="field-group"><label>Nome do(a) gestor(a) requisitante *</label><input id="gestor" type="text" oninput="save()"></div>
+      </div>
+      <table class="score-table">
+        <thead><tr>
+          <th class="crit">Critério avaliado</th>
+          <th>1<br><span style="font-size:9px;font-weight:400">Insatisfatório</span></th>
+          <th>2<br><span style="font-size:9px;font-weight:400">Abaixo</span></th>
+          <th>3<br><span style="font-size:9px;font-weight:400">Atende</span></th>
+          <th>4<br><span style="font-size:9px;font-weight:400">Acima</span></th>
+          <th>5<br><span style="font-size:9px;font-weight:400">Excelente</span></th>
+        </tr></thead>
+        <tbody id="tbody-tec"></tbody>
+      </table>
+      <div class="pct-row" style="align-items:flex-start;gap:12px;flex-wrap:wrap">
+        <div class="score-box" id="score-tec" style="border-color:#DDD;background:#F5F5F5">
+          <span class="score-num" style="color:#888">—</span>
+          <span class="score-max" style="color:#888">/ 100</span>
+          <span class="score-lbl" style="color:#888">Aguardando</span>
+        </div>
+        <div class="pct-bar-wrap">
+          <span style="font-size:10px;color:#888">Aderência técnica</span>
+          <span class="pct-val" id="pct-tec-val" style="color:#888">—</span>
+          <div class="pct-bar" id="pct-tec-bar" style="width:4px;background:#DDD;width:120px"></div>
+        </div>
+      </div>
+      <div class="conclusao">
+        <label>Conclusão — Entrevista Técnica:</label>
+        <div class="opts">
+          <label class="opt green"><input type="radio" name="dec-tec" value="Aprovado(a)" onchange="save()"> Aprovado(a)</label>
+          <label class="opt amber"><input type="radio" name="dec-tec" value="Aprovado(a) com ressalvas" onchange="save()"> Aprovado(a) com ressalvas</label>
+          <label class="opt red-c"><input type="radio" name="dec-tec" value="Reprovado(a)" onchange="save()"> Reprovado(a)</label>
+        </div>
+      </div>
+      <div class="just-label">Justificativa / Breve relato — Técnica:</div>
+      <textarea class="just-area" id="just-tec" rows="3" oninput="save()"></textarea>
+    </div>
+  </div>
+
+  <!-- 5. PARECER FINAL -->
+  <div class="card" id="card-final">
+    <div class="card-head green">
+      <div class="card-num">5</div>
+      <div class="card-info"><div class="title">Parecer Final</div><div class="sub">Preenchido pelo RH após retorno do gestor</div></div>
+    </div>
+    <div class="card-body">
+      <div class="readonly-notice" id="notice-final" style="display:none">🔒 Seção preenchida pelo RH</div>
+      <div class="conclusao">
+        <label>Decisão final:</label>
+        <div class="opts">
+          <label class="opt green"><input type="radio" name="dec-final" value="Aprovado(a)" onchange="save()"> APROVADO(A)</label>
+          <label class="opt amber"><input type="radio" name="dec-final" value="Aprovado(a) com ressalvas" onchange="save()"> APROVADO(A) COM RESSALVAS</label>
+          <label class="opt red-c"><input type="radio" name="dec-final" value="Reprovado(a)" onchange="save()"> REPROVADO(A)</label>
+        </div>
+      </div>
+      <div class="just-label">Justificativa final:</div>
+      <textarea class="just-area" id="just-final" rows="3" oninput="save()"></textarea>
+      <div class="assin">
+        <div class="assin-box">
+          <div class="assin-role">Entrevistador(a) — RH</div>
+          <div class="sign-line"></div>
+          <div class="assin-field">Nome: _______________________________</div>
+          <div class="assin-field">Data: _______ / _______ / __________</div>
+        </div>
+        <div class="assin-box">
+          <div class="assin-role">Gestor(a) Requisitante</div>
+          <div class="sign-line"></div>
+          <div class="assin-field">Nome: _______________________________</div>
+          <div class="assin-field">Data: _______ / _______ / __________</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL DE PONTUAÇÃO TOTAL -->
+  <div class="card" id="card-score">
+    <div class="card-head" style="background:#282C63">
+      <div class="card-num" style="background:rgba(255,255,255,0.2)">Σ</div>
+      <div class="card-info"><div class="title">Pontuação Consolidada (0 – 100)</div><div class="sub">Calculada automaticamente conforme preenchimento</div></div>
+    </div>
+    <div class="card-body">
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:12px">
+        <div class="total-score-box" id="total-box" style="background:#888">
+          <div>
+            <div style="font-size:10px;opacity:.8;margin-bottom:2px">PONTUAÇÃO FINAL</div>
+            <div style="display:flex;align-items:baseline;gap:4px">
+              <span class="total-score-num" id="total-score">—</span>
+              <span style="font-size:14px;opacity:.7">/ 100</span>
+            </div>
+            <div class="total-score-sub" id="total-label">Preencha as avaliações</div>
+          </div>
+        </div>
+        <div style="flex:1;min-width:200px">
+          <div style="font-size:10px;color:#888;margin-bottom:6px">Barra de progresso total</div>
+          <div style="background:#EEE;border-radius:6px;height:10px;overflow:hidden;width:100%">
+            <div class="pct-bar" id="total-bar" style="width:0%;height:10px;border-radius:6px;background:#888"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;color:#aaa;margin-top:2px"><span>0</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
+        </div>
+      </div>
+
+      <div class="score-summary">
+        <div class="score-summary-title">Detalhamento por seção</div>
+
+        <div class="score-summary-row" id="sum-row-c">
+          <span class="score-summary-label">Comportamental <span style="color:#888;font-weight:400">(peso 30%)</span></span>
+          <div class="score-mini-bar" id="sum-bar-c"></div>
+          <span class="score-summary-pct" id="sum-pct-c" style="color:#888">—</span>
+        </div>
+
+        <div class="score-summary-row" id="sum-row-f">
+          <span class="score-summary-label">Fit Cultural <span style="color:#888;font-weight:400">(peso 30%)</span></span>
+          <div class="score-mini-bar" id="sum-bar-f"></div>
+          <span class="score-summary-pct" id="sum-pct-f" style="color:#888">—</span>
+        </div>
+
+        <div class="score-summary-row" id="sum-row-t">
+          <span class="score-summary-label">Técnica <span style="color:#888;font-weight:400">(peso 40%)</span></span>
+          <div class="score-mini-bar" id="sum-bar-t"></div>
+          <span class="score-summary-pct" id="sum-pct-t" style="color:#888">—</span>
+        </div>
+
+        <div style="font-size:10px;color:#aaa;margin-top:8px;font-style:italic">
+          Fórmula: (Comportamental × 30% + Fit Cultural × 30% + Técnica × 40%) = Pontuação Final<br>
+          Referência: &lt;40 Insatisfatório · 40–59 Abaixo · 60–79 Atende · 80–89 Acima · 90–100 Excelente
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BARRA DE AÇÕES -->
+  <div class="action-bar no-print">
+    <h3 id="action-title">Ações — Modo RH</h3>
+    <div class="action-btns">
+      <button class="btn btn-red" onclick="gerarTextoGestor()" id="btn-email">📋 Gerar mensagem para o Gestor</button>
+      <button class="btn btn-white" onclick="salvarPDF()">🖨 Salvar como PDF</button>
+      <button class="btn btn-gray" onclick="limpar()">🗑 Limpar tudo</button>
+    </div>
+    <div id="gestor-pdf-note" style="display:none;margin-top:10px;background:#FFF3CD;border:1px solid #F9A825;border-radius:6px;padding:10px 14px;font-size:12px;color:#5D4037">
+      <strong>📋 Instruções para o gestor:</strong><br>
+      1. Preencha a Seção 4 — Entrevista Técnica<br>
+      2. Clique em <strong>🖨 Salvar como PDF</strong> acima<br>
+      3. Na janela de impressão, selecione <strong>"Salvar como PDF"</strong><br>
+      4. Envie o PDF para: <strong style="color:#282C63">rh@cecaldistribuidora.com.br</strong>
+    </div>
+    <div id="mensagem-gestor" style="margin-top:12px;display:none">
+      <div style="font-size:12px;font-weight:700;color:#282C63;margin-bottom:6px">📋 Copie a mensagem abaixo e cole no seu e-mail ou WhatsApp:</div>
+      <div style="position:relative">
+        <button onclick="copiarMensagem()" style="position:absolute;top:6px;right:6px;background:#282C63;color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;z-index:1">Copiar tudo</button>
+        <div id="msg-texto" style="background:#F8F9FA;border:1px solid #DDD;border-radius:6px;padding:12px 14px;font-size:12px;color:#333;line-height:1.8;white-space:pre-wrap;font-family:Arial,sans-serif;min-height:60px"></div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:#888;font-style:italic">O link na mensagem já é um hiperlink clicável — o gestor não precisa copiar e colar no navegador.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">CECAL &amp; DADI · Uso interno — Confidencial · LGPD Lei 13.709/2018 · FORM-RH-___ Rev.01</div>
+
+<script>
+// ── Dados ────────────────────────────────────────────────────────────────────
+var COMP = ['Comunicação e clareza','Trabalho em equipe e colaboração','Proatividade e iniciativa','Inteligência emocional / postura','Liderança e influência (Tático/Estratégico)'];
+var FIT  = ['Comprometimento e responsabilidade','Ética e integridade','Trabalho em equipe e colaboração','Foco no cliente / resultado','Proatividade e senso de dono'];
+var TEC  = ['Conhecimento técnico para o cargo','Experiência prática na área','Domínio de ferramentas / equipamentos','Resultados comprovados anteriormente','Adequação à complexidade da vaga'];
+
+var currentMode = 'rh';
+
+// ── Construir tabelas ─────────────────────────────────────────────────────────
+function buildTable(tbodyId, prefix, labels) {
+  var tb = document.getElementById(tbodyId);
+  labels.forEach(function(lbl, i) {
+    var tr = document.createElement('tr');
+    if(prefix==='c' && i===4){ tr.id='row-lideranca'; tr.style.display='none'; }
+    var td0 = document.createElement('td'); td0.className='crit'; td0.textContent=lbl; tr.appendChild(td0);
+    for(var v=1;v<=5;v++){
+      var td=document.createElement('td');
+      var inp=document.createElement('input');
+      inp.type='radio'; inp.name=prefix+i; inp.value=v;
+      inp.setAttribute('data-group',prefix); inp.setAttribute('data-idx',i);
+      inp.onchange=function(){ calc(this.getAttribute('data-group')); save(); };
+      td.appendChild(inp); tr.appendChild(td);
+    }
+    tb.appendChild(tr);
+  });
+}
+buildTable('tbody-comp','c',COMP);
+
+function updateLideranca() {
+  var nivel = document.getElementById('nivel').value;
+  var row = document.getElementById('row-lideranca');
+  if(!row) return;
+  var show = nivel==='Tático' || nivel==='Estratégico';
+  row.style.display = show ? '' : 'none';
+  if(!show) {
+    document.querySelectorAll('input[name="c4"]').forEach(function(el){ el.checked=false; });
+    calc('c');
+  }
+}
+document.getElementById('nivel').addEventListener('change', function(){ updateLideranca(); save(); });
+buildTable('tbody-fit','f',FIT);
+buildTable('tbody-tec','t',TEC);
+
+// ── Cálculo de percentual ─────────────────────────────────────────────────────
+function getColor(p){ return p<40?'#C00000':p<60?'#BF6900':'#2E7D32'; }
+
+// Peso de cada seção na pontuação final (0-100)
+var PESOS = { comp: 30, fit: 30, tec: 40 };
+
+function calcScore(prefix) {
+  var names = prefix==='c'?COMP:prefix==='f'?FIT:TEC;
+  var sum=0, count=0;
+  names.forEach(function(_,i){
+    var el=document.querySelector('input[name="'+prefix+i+'"]:checked');
+    if(el){sum+=parseInt(el.value);count++;}
+  });
+  if(!count) return null;
+  return Math.round((sum/(count*5))*100);
+}
+
+function getScoreColor(s) {
+  if(s===null) return '#888';
+  if(s<40) return '#C00000';
+  if(s<60) return '#BF6900';
+  if(s<80) return '#27500A';
+  return '#2E7D32';
+}
+
+function getScoreLabel(s) {
+  if(s===null) return '—';
+  if(s<40) return 'INSATISFATÓRIO';
+  if(s<60) return 'ABAIXO';
+  if(s<80) return 'ATENDE';
+  if(s<90) return 'ACIMA';
+  return 'EXCELENTE';
+}
+
+function calc(prefix) {
+  var score = calcScore(prefix);
+  var color = getScoreColor(score);
+
+  // Map prefix to ids
+  var map = {
+    c: { bar:'pct-comp-bar', val:'pct-comp-val', box:'score-comp' },
+    f: { bar:'pct-fit-bar',  val:'pct-fit-val',  box:'score-fit'  },
+    t: { bar:'pct-tec-bar',  val:'pct-tec-val',  box:'score-tec'  }
+  };
+  var m = map[prefix];
+  var bar=document.getElementById(m.bar), val=document.getElementById(m.val);
+
+  if(score===null){
+    if(bar){bar.style.width='4px';bar.style.background='#DDD';}
+    if(val){val.textContent='—';val.style.color='#888';}
+    if(prefix==='f'){var b=document.getElementById('fit-badge');if(b){b.textContent='Aguardando…';b.style.background='#EEE';b.style.color='#888';}}
+    updateScoreBox(m.box, null);
+    updateTotal();
+    return;
+  }
+
+  if(bar){bar.style.width=(score*1.2)+'px';bar.style.background=color;}
+  if(val){val.textContent=score+'%';val.style.color=color;}
+
+  if(prefix==='f'){
+    var b=document.getElementById('fit-badge');
+    if(b){
+      b.textContent=score>=60?'ADERENTE':'NÃO ADERENTE';
+      b.style.background=score>=60?'#E8F5E9':'#FFEBEE';
+      b.style.color=score>=60?'#2E7D32':'#8B0000';
+    }
+  }
+
+  updateScoreBox(m.box, score);
+  updateSummaryRow(prefix, score, color);
+  updateTotal();
+}
+
+function updateScoreBox(id, score) {
+  var el = document.getElementById(id);
+  if(!el) return;
+  var color = getScoreColor(score);
+  el.style.borderColor = color;
+  el.style.background = score!==null ? color+'18' : '#F5F5F5';
+  el.querySelector('.score-num').textContent = score!==null ? score : '—';
+  el.querySelector('.score-num').style.color = color;
+  el.querySelector('.score-lbl').textContent = score!==null ? getScoreLabel(score) : 'Aguardando';
+  el.querySelector('.score-lbl').style.color = color;
+}
+
+function updateSummaryRow(prefix, score, color) {
+  var rowId = 'sum-row-'+prefix;
+  var barId = 'sum-bar-'+prefix;
+  var pctId = 'sum-pct-'+prefix;
+  var row = document.getElementById(rowId);
+  var bar = document.getElementById(barId);
+  var pct = document.getElementById(pctId);
+  if(bar){bar.style.width=(score||0)+'%';bar.style.background=color;}
+  if(pct){pct.textContent=score!==null?score+'pts':'—';pct.style.color=color;}
+}
+
+function updateTotal() {
+  var sc = calcScore('c'), sf = calcScore('f'), st = calcScore('t');
+  var totalEl = document.getElementById('total-score');
+  var totalLbl = document.getElementById('total-label');
+  var totalBar = document.getElementById('total-bar');
+  if(!totalEl) return;
+
+  var count=0, weighted=0;
+  if(sc!==null){weighted += sc * PESOS.comp / 100; count++;}
+  if(sf!==null){weighted += sf * PESOS.fit  / 100; count++;}
+  if(st!==null){weighted += st * PESOS.tec  / 100; count++;}
+
+  if(count===0){totalEl.textContent='—';if(totalLbl)totalLbl.textContent='Preencha as avaliações';return;}
+
+  // Normalize to 100 if not all sections filled
+  var maxPeso = (sc!==null?PESOS.comp:0)+(sf!==null?PESOS.fit:0)+(st!==null?PESOS.tec:0);
+  var total = Math.round(weighted / maxPeso * 100);
+  var color = getScoreColor(total);
+  totalEl.textContent = total;
+  totalEl.style.color = '#fff';
+  if(totalLbl) totalLbl.textContent = getScoreLabel(total);
+  if(totalBar){totalBar.style.width=total+'%';totalBar.style.background=color;}
+  var box = document.getElementById('total-box');
+  if(box) box.style.background=color;
+}
+
+// ── Modo RH / Gestor ──────────────────────────────────────────────────────────
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('tab-rh').className='mode-tab'+(mode==='rh'?' active rh':'');
+  document.getElementById('tab-gestor').className='mode-tab'+(mode==='gestor'?' active gestor':'');
+  document.getElementById('topbadge').textContent = mode==='rh'?'Modo RH':'Modo Gestor';
+  document.getElementById('topbadge').className = 'mode-badge '+(mode==='rh'?'rh':'gestor');
+  document.getElementById('action-title').textContent = mode==='rh'?'Ações — Modo RH':'Ações — Modo Gestor';
+  document.getElementById('btn-email').style.display = mode==='rh'?'':'none';
+
+  var gestorMode = mode==='gestor';
+
+  // Seções 1, 2, 3, 5: readonly no modo gestor
+  ['cargo','data','candidato','unidade','nivel','entrevistador'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.readOnly=gestorMode; if(el.tagName==='SELECT')el.disabled=gestorMode;}
+  });
+  // Radios comportamental e fit
+  document.querySelectorAll('input[name^="c"], input[name^="f"], input[name="dec-comp"], input[name="dec-final"]').forEach(function(el){el.disabled=gestorMode;});
+  document.getElementById('just-comp').readOnly=gestorMode;
+  document.getElementById('just-final').readOnly=gestorMode;
+  document.getElementById('card-final').style.opacity=gestorMode?'0.5':'1';
+
+  // Notices
+  document.getElementById('notice-comp').style.display=gestorMode?'block':'none';
+  document.getElementById('notice-fit').style.display=gestorMode?'block':'none';
+  document.getElementById('notice-tec').style.display=gestorMode?'none':'none';
+  document.getElementById('notice-final').style.display=gestorMode?'block':'none';
+
+  // Técnica: editável só no modo gestor (destacar)
+  document.querySelectorAll('input[name^="t"], input[name="dec-tec"]').forEach(function(el){el.disabled=false;});
+  document.getElementById('just-tec').readOnly=false;
+  document.getElementById('card-tec').style.outline=gestorMode?'3px solid #C00000':'none';
+
+  document.getElementById('mode-desc').textContent = gestorMode
+    ? 'Modo Gestor ativo. As seções 1, 2 e 3 estão em modo leitura. Preencha a Seção 4 — Entrevista Técnica e clique em "Salvar como PDF" para enviar ao RH.'
+    : 'Modo RH ativo. Preencha as seções 1, 2 e 3. Informe seu e-mail e clique em "Gerar link para o gestor".';
+
+  // Mostrar/ocultar elementos por modo
+  document.getElementById('action-title').textContent = gestorMode ? 'Ações — Modo Gestor' : 'Ações — Modo RH';
+  document.getElementById('btn-email').style.display = gestorMode ? 'none' : 'inline-block';
+  document.getElementById('mensagem-gestor').style.display = 'none';
+  document.getElementById('gestor-pdf-note').style.display = gestorMode ? 'block' : 'none';
+
+  if(gestorMode) load();
+}
+
+// ── Salvar / Carregar (localStorage via URL hash) ─────────────────────────────
+function getData() {
+  var emailRhEl = document.getElementById('email-rh');
+  var data = { cargo:document.getElementById('cargo').value, data:document.getElementById('data').value,
+    candidato:document.getElementById('candidato').value, unidade:document.getElementById('unidade').value,
+    nivel:document.getElementById('nivel').value, entrevistador:document.getElementById('entrevistador').value,
+    gestor:document.getElementById('gestor').value, emailRH: emailRhEl ? emailRhEl.value : '',
+    'just-comp':document.getElementById('just-comp').value,
+    'just-tec':document.getElementById('just-tec').value,
+    'just-final':document.getElementById('just-final').value };
+  // radios
+  ['c0','c1','c2','c3','c4','f0','f1','f2','f3','f4','t0','t1','t2','t3','t4'].forEach(function(n){
+    var el=document.querySelector('input[name="'+n+'"]:checked'); data[n]=el?el.value:'';
+  });
+  ['dec-comp','dec-tec','dec-final'].forEach(function(n){
+    var el=document.querySelector('input[name="'+n+'"]:checked'); data[n]=el?el.value:'';
+  });
+  return data;
+}
+
+function save() { try{ localStorage.setItem('cecal_parecer', JSON.stringify(getData())); }catch(e){} }
+
+function load() {
+  try{
+    var raw = localStorage.getItem('cecal_parecer');
+    if(!raw) {
+      // Tentar carregar da URL hash
+      var hash = window.location.hash.slice(1);
+      if(hash) raw = decodeURIComponent(hash);
+    }
+    if(!raw) return;
+    var d = JSON.parse(raw);
+    ['cargo','data','candidato','unidade','nivel','entrevistador','gestor'].forEach(function(id){
+      var el=document.getElementById(id); if(el&&d[id]){el.value=d[id];}
+    });
+    if(d['emailRH']){var el=document.getElementById('email-rh');if(el)el.value=d['emailRH'];}
+    ['just-comp','just-tec','just-final'].forEach(function(id){
+      var el=document.getElementById(id); if(el&&d[id])el.value=d[id];
+    });
+    ['c0','c1','c2','c3','c4','f0','f1','f2','f3','f4','t0','t1','t2','t3','t4'].forEach(function(n){
+      if(d[n]){var el=document.querySelector('input[name="'+n+'"][value="'+d[n]+'"]');if(el)el.checked=true;}
+    });
+    ['dec-comp','dec-tec','dec-final'].forEach(function(n){
+      if(d[n]){var el=document.querySelector('input[name="'+n+'"][value="'+d[n]+'"]');if(el)el.checked=true;}
+    });
+    ['c','f','t'].forEach(function(p){calc(p);});
+    updateLideranca();
+  }catch(e){}
+}
+
+function limpar() {
+  if(confirm('Apagar todos os dados do formulário?')) {
+    localStorage.removeItem('cecal_parecer');
+    location.reload();
+  }
+}
+
+// ── Salvar dados em sessionStorage com chave única ───────────────────────────
+function gerarChave(candidato) {
+  return 'cecal_' + (candidato || 'candidato').replace(/\s+/g,'_').toLowerCase() + '_' + Date.now();
+}
+
+
+
+// ── Gerar mensagem para o gestor (texto para copiar) ─────────────────────────
+function gerarTextoGestor() {
+  save();
+  var data = getData();
+  var candidato = data.candidato || '[candidato]';
+  var cargo = data.cargo || '[cargo]';
+  var entrevistador = data.entrevistador || 'RH CECAL & DADI';
+
+  // Salvar dados no localStorage com chave baseada no candidato
+  var chave = 'cecal_' + candidato.replace(/\s+/g,'_').toLowerCase() + '_' + Date.now();
+  try { localStorage.setItem(chave, JSON.stringify(data)); } catch(e){}
+
+  // Gerar link com chave — funciona se gestor abrir no mesmo computador
+  // ou hospedar o arquivo online para link externo
+  var base = window.location.href.split('?')[0].split('#')[0];
+  var link = base + '?chave=' + encodeURIComponent(chave) + '&modo=gestor';
+
+  // Montar mensagem formatada
+  var msg =
+    'Olá,\n\n' +
+    'Segue o formulário para preenchimento da Avaliação Técnica do(a) candidato(a) ' + candidato + ' para a vaga de ' + cargo + '.\n\n' +
+    'As seções de identificação, avaliação comportamental e fit cultural já estão preenchidas. ' +
+    'Você precisa preencher apenas a Seção 4 — Entrevista Técnica.\n\n' +
+    'Acesse pelo link abaixo (clicável):\n' +
+    link + '\n\n' +
+    'Após preencher:\n' +
+    '1. Clique em "Salvar como PDF"\n' +
+    '2. Selecione "Salvar como PDF" na janela de impressão\n' +
+    '3. Envie o PDF para: rh@cecaldistribuidora.com.br\n\n' +
+    'Qualquer dúvida, entre em contato.\n\n' +
+    'Atenciosamente,\n' +
+    entrevistador + '\n' +
+    'CECAL & DADI — Recursos Humanos';
+
+  // Mostrar mensagem na tela
+  document.getElementById('mensagem-gestor').style.display = 'block';
+
+  // Renderizar como HTML com link clicável
+  var linkHtml = '<a href="' + link + '" target="_blank" style="color:#282C63;font-weight:700">' + link + '</a>';
+  var msgHtml = msg
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\n/g,'<br>')
+    .replace(link.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'), linkHtml);
+  document.getElementById('msg-texto').innerHTML = msgHtml;
+
+  // Scroll para a mensagem
+  document.getElementById('mensagem-gestor').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function copiarMensagem() {
+  var data = getData();
+  var candidato = data.candidato || '[candidato]';
+  var cargo = data.cargo || '[cargo]';
+  var entrevistador = data.entrevistador || 'RH CECAL & DADI';
+  var chave = document.getElementById('msg-texto').querySelector('a') ?
+    document.getElementById('msg-texto').querySelector('a').href : '';
+
+  var msg =
+    'Olá,\n\n' +
+    'Segue o formulário para preenchimento da Avaliação Técnica do(a) candidato(a) ' + candidato + ' para a vaga de ' + cargo + '.\n\n' +
+    'As seções de identificação, avaliação comportamental e fit cultural já estão preenchidas. ' +
+    'Você precisa preencher apenas a Seção 4 — Entrevista Técnica.\n\n' +
+    'Acesse pelo link abaixo (clicável):\n' +
+    chave + '\n\n' +
+    'Após preencher:\n' +
+    '1. Clique em "Salvar como PDF"\n' +
+    '2. Selecione "Salvar como PDF" na janela de impressão\n' +
+    '3. Envie o PDF para: rh@cecaldistribuidora.com.br\n\n' +
+    'Qualquer dúvida, entre em contato.\n\n' +
+    'Atenciosamente,\n' +
+    entrevistador + '\n' +
+    'CECAL & DADI — Recursos Humanos';
+
+  navigator.clipboard.writeText(msg).then(function(){
+    var btn = event.target;
+    btn.textContent = '✓ Copiado!';
+    btn.style.background = '#2E7D32';
+    setTimeout(function(){ btn.textContent = 'Copiar tudo'; btn.style.background = '#282C63'; }, 2500);
+  }).catch(function(){
+    // fallback
+    var ta = document.createElement('textarea');
+    ta.value = msg; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    alert('Mensagem copiada!');
+  });
+}
+
+// ── Salvar PDF com nome do candidato ─────────────────────────────────────────
+function salvarPDF() {
+  var candidato = document.getElementById('candidato').value.trim();
+  var nome = candidato ? candidato.toUpperCase().replace(/\s+/g,'_') : 'CANDIDATO';
+  document.title = 'Parecer_de_Entrevista_' + nome;
+  window.print();
+  // Restore title after print dialog
+  setTimeout(function(){ document.title = 'Parecer de Entrevista — CECAL & DADI'; }, 2000);
+}
+
+// ── Inicializar ───────────────────────────────────────────────────────────────
+window.onload = function() {
+  // Verificar se veio com parâmetro de chave (modo gestor via link)
+  // Mostrar aviso se arquivo local
+  if(window.location.href.indexOf('file:///') === 0) {
+    document.getElementById('banner-local').style.display='block';
+  }
+  var urlParams = new URLSearchParams(window.location.search);
+  var chave = urlParams.get('chave');
+  var modo = urlParams.get('modo');
+  if(chave) {
+    // Carregar dados da chave recebida
+    try {
+      var raw = localStorage.getItem(chave);
+      if(raw) {
+        localStorage.setItem('cecal_parecer', raw);
+      }
+    } catch(e) {}
+  }
+  load();
+  if(modo === 'gestor' || (window.location.hash && window.location.hash.length > 1)) {
+    setMode('gestor');
+  }
+};
+</script>
+</body>
+</html>
