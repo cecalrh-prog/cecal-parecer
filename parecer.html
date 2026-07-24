@@ -152,46 +152,77 @@ body{font-family:Arial,sans-serif;font-size:13px;color:#333;background:#EAECF4;m
 .assin-field{font-size:10px;color:#666;margin-bottom:3px}
 
 /* ── PRINT ── */
-@page{size:A4 portrait;margin:8mm 10mm}
+@page{size:A4 portrait;margin:6mm 8mm}
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-  .topbar,.switcher,.total-panel,.actions,.msg-box,.ret-box,.paste-box,.readonly-note,.pct-row,.ader-box,.no-print{display:none!important}
-  html,body{background:#fff;margin:0;padding:0}
+  .topbar,.switcher,.total-panel,.actions,.msg-box,.ret-box,.paste-box,.readonly-note,.pct-row,.ader-box,.no-print,.score-pill{display:none!important}
+  html,body{background:#fff;margin:0;padding:0;font-size:11px}
   .wrap{margin:0;padding:0;max-width:100%}
-  .print-header{display:flex!important;justify-content:space-between;align-items:center;background:#282C63;padding:7px 12px;border-radius:5px;margin-bottom:7px}
-  .ph-left .ph-name{font-size:13px;font-weight:700;color:#fff}
-  .ph-left .ph-sub{font-size:9px;color:#AABBDD}
-  .ph-right{background:#C00000;padding:4px 10px;border-radius:4px;text-align:right}
-  .ph-right .ph-doc{font-size:10px;font-weight:700;color:#fff}
-  .ph-right .ph-rev{font-size:8px;color:#FFCCCC}
-  .card{box-shadow:none!important;border:0.5px solid #CCC!important;margin-bottom:5px!important;border-radius:4px!important;page-break-inside:avoid}
-  .card-head{padding:5px 10px!important}
-  .card-head .ttl{font-size:10px!important}
-  .card-head .sub{font-size:8px!important}
-  .card-num{width:17px!important;height:17px!important;font-size:8px!important}
-  .card-body{padding:6px 10px!important}
-  .row{gap:6px!important;margin-bottom:5px!important}
-  .fg label{font-size:8.5px!important}
-  .fg input,.fg select{font-size:10px!important;padding:1px 0!important}
-  .stbl th{padding:3px 2px!important;font-size:8.5px!important}
-  .stbl th.lft{padding:3px 6px!important;font-size:9px!important}
-  .stbl td{padding:3px 2px!important}
-  .stbl td.crit{padding:3px 6px!important;font-size:9px!important}
-  .legend{font-size:8px!important;margin-bottom:3px!important}
-  .concl{padding:5px 8px!important;margin-top:4px!important}
-  .concl .clbl{font-size:8.5px!important}
-  .concl .opts{gap:10px!important}
-  .opt-lbl{font-size:9px!important}
-  .just-lbl{font-size:8.5px!important;margin:4px 0 2px!important}
-  .just{min-height:24px!important;font-size:9px!important;padding:2px 5px!important}
-  .assin{gap:6px!important;margin-top:6px!important}
-  .assin-box{padding:6px 9px!important}
-  .assin-role{font-size:9px!important}
-  .sign-line{margin:14px 0 4px!important}
-  .assin-field{font-size:8px!important}
-  .score-pill{display:none!important}
+
+  /* HEADER */
+  .print-header{display:flex!important;justify-content:space-between;align-items:center;background:#282C63;padding:5px 10px;border-radius:4px;margin-bottom:5px}
+  .ph-left .ph-name{font-size:11px;font-weight:700;color:#fff}
+  .ph-left .ph-sub{font-size:7.5px;color:#AABBDD}
+  .ph-right{background:#C00000;padding:3px 8px;border-radius:3px;text-align:right}
+  .ph-right .ph-doc{font-size:9px;font-weight:700;color:#fff}
+  .ph-right .ph-rev{font-size:7px;color:#FFCCCC}
+
+  /* CARDS */
+  .card{box-shadow:none!important;border:0.5px solid #CCC!important;margin-bottom:3px!important;border-radius:3px!important;page-break-inside:avoid}
+  .card-head{padding:3px 8px!important}
+  .card-head .ttl{font-size:8.5px!important}
+  .card-head .sub{font-size:7px!important}
+  .card-num{width:14px!important;height:14px!important;font-size:7px!important}
+  .card-body{padding:4px 8px!important}
+
+  /* FIELDS */
+  .row{gap:4px!important;margin-bottom:3px!important}
+  .fg label{font-size:7.5px!important;margin-bottom:1px!important}
+  .fg input,.fg select{font-size:8.5px!important;padding:0!important;border-bottom-width:0.5px!important}
+
+  /* TABLES */
+  .stbl th{padding:2px 1px!important;font-size:7.5px!important;line-height:1.2!important}
+  .stbl th.lft{padding:2px 5px!important;font-size:8px!important}
+  .stbl td{padding:2px 1px!important}
+  .stbl td.crit{padding:2px 5px!important;font-size:8px!important}
+  .legend{font-size:7px!important;margin-bottom:2px!important}
+
+  /* CONCLUSAO */
+  .concl{padding:3px 6px!important;margin-top:2px!important}
+  .concl .clbl{font-size:7.5px!important;margin-bottom:2px!important}
+  .concl .opts{gap:8px!important}
+  .opt-lbl{font-size:8px!important}
+  .just-lbl{font-size:7.5px!important;margin:2px 0 1px!important}
+  .just{min-height:16px!important;font-size:8px!important;padding:1px 4px!important;line-height:1.4!important}
+
+  /* ASSINATURAS */
+  .assin{gap:5px!important;margin-top:4px!important}
+  .assin-box{padding:4px 7px!important}
+  .assin-role{font-size:8px!important;margin-bottom:3px!important}
+  .sign-line{margin:10px 0 3px!important}
+  .assin-field{font-size:7.5px!important;margin-bottom:1px!important}
+
+  /* FIT ADERENCIA inline */
+  .ader-box{padding:3px 7px!important;margin-top:2px!important}
+  .ader-lbl{font-size:8px!important}
+  .ader-badge{font-size:8px!important;padding:1px 6px!important}
+
+  /* PONTUAÇÃO NO PDF */
+  .print-score{display:flex!important;align-items:center;gap:10px;background:#F5F5F5;border:0.5px solid #CCC;border-radius:4px;padding:5px 10px;margin-bottom:4px}
+  .ps-total{display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;padding:4px 12px;min-width:60px;border:2px solid #DDD}
+  .ps-num{font-size:18px;font-weight:700;line-height:1}
+  .ps-max{font-size:7px;opacity:.7}
+  .ps-lbl{font-size:7px;font-weight:700;margin-top:1px}
+  .ps-bars{flex:1;display:flex;flex-direction:column;gap:3px}
+  .ps-row{display:flex;align-items:center;gap:6px}
+  .ps-name{font-size:8px;color:#444;min-width:130px}
+  .ps-peso{font-size:7px;color:#aaa}
+  .ps-bar-bg{flex:1;background:#EEE;border-radius:3px;height:5px;overflow:hidden}
+  .ps-bar{height:5px;border-radius:3px;background:#DDD;transition:width .3s}
+  .ps-val{font-size:8px;font-weight:700;min-width:28px;text-align:right}
 }
 .print-header{display:none}
+.print-score{display:none}
 </style>
 </head>
 <body>
@@ -221,6 +252,20 @@ body{font-family:Arial,sans-serif;font-size:13px;color:#333;background:#EAECF4;m
     <div class="ph-right">
       <div class="ph-doc">PARECER DE ENTREVISTA</div>
       <div class="ph-rev">FORM-RH-___  |  Rev. 01  |  Confidencial</div>
+    </div>
+  </div>
+
+  <!-- PONTUAÇÃO — visível só no PDF -->
+  <div class="print-score" id="print-score">
+    <div class="ps-total" id="ps-total-box">
+      <span class="ps-num" id="ps-num">—</span>
+      <span class="ps-max">/ 100</span>
+      <span class="ps-lbl" id="ps-lbl">Aguardando</span>
+    </div>
+    <div class="ps-bars">
+      <div class="ps-row"><span class="ps-name">Comportamental <span class="ps-peso">(30%)</span></span><div class="ps-bar-bg"><div class="ps-bar" id="psb-c"></div></div><span class="ps-val" id="psv-c">—</span></div>
+      <div class="ps-row"><span class="ps-name">Fit Cultural <span class="ps-peso">(30%)</span></span><div class="ps-bar-bg"><div class="ps-bar" id="psb-f"></div></div><span class="ps-val" id="psv-f">—</span></div>
+      <div class="ps-row"><span class="ps-name">Técnica <span class="ps-peso">(40%)</span></span><div class="ps-bar-bg"><div class="ps-bar" id="psb-t"></div></div><span class="ps-val" id="psv-t">—</span></div>
     </div>
   </div>
 
@@ -592,12 +637,33 @@ function updateTotal(){
   if(sc!==null){w+=sc*PESOS.c/100;maxP+=PESOS.c;}
   if(sf!==null){w+=sf*PESOS.f/100;maxP+=PESOS.f;}
   if(st!==null){w+=st*PESOS.t/100;maxP+=PESOS.t;}
-  if(!maxP){num.textContent='—';lbl.textContent='Preencha as avaliações';if(box)box.style.background='#888';return;}
+  if(!maxP){num.textContent='—';lbl.textContent='Preencha as avaliações';if(box)box.style.background='#888';updatePrintScore(null,sc,sf,st);return;}
   var total=Math.round(w/maxP*100);
   var color=getColor(total);
   num.textContent=total;lbl.textContent=getLabel(total);
   if(box)box.style.background=color;
   if(pf){pf.style.width=total+'%';pf.style.background=color;}
+  updatePrintScore(total,sc,sf,st);
+}
+
+function updatePrintScore(total,sc,sf,st){
+  var pn=document.getElementById('ps-num');
+  var pl=document.getElementById('ps-lbl');
+  var pb=document.getElementById('ps-total-box');
+  var color=total!==null?getColor(total):'#888';
+  if(pn)pn.textContent=total!==null?total:'—';
+  if(pn)pn.style.color=color;
+  if(pl)pl.textContent=total!==null?getLabel(total):'Aguardando';
+  if(pl)pl.style.color=color;
+  if(pb){pb.style.borderColor=color;pb.style.background=total!==null?color+'15':'#F9F9F9';}
+  // bars
+  var map={c:[sc,'psb-c','psv-c'],f:[sf,'psb-f','psv-f'],t:[st,'psb-t','psv-t']};
+  Object.keys(map).forEach(function(k){
+    var score=map[k][0], bar=document.getElementById(map[k][1]), val=document.getElementById(map[k][2]);
+    var c=score!==null?getColor(score):'#DDD';
+    if(bar){bar.style.width=(score!==null?score:'0')+'%';bar.style.background=c;}
+    if(val){val.textContent=score!==null?score:'—';val.style.color=c;}
+  });
 }
 
 // ── DADOS ────────────────────────────────────────────────────────────────────
