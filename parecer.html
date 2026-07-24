@@ -758,17 +758,9 @@ function gerarMensagem(){
   var candidato=d.candidato||'[candidato]';
   var cargo=d.cargo||'[cargo]';
   var entrevistador=d.entrevistador||'RH CECAL & DADI';
-  // Remover chaves antigas antes de criar nova
-  var keysToRemove=[];
-  for(var i=0;i<localStorage.length;i++){
-    var k=localStorage.key(i);
-    if(k && k.indexOf('cecal_')===0 && k!=='cecal_parecer') keysToRemove.push(k);
-  }
-  keysToRemove.forEach(function(k){localStorage.removeItem(k);});
-  // Criar nova chave com timestamp único
-  var chave='cecal_'+candidato.replace(/\s+/g,'_').toLowerCase()+'_'+Date.now();
-  try{localStorage.setItem(chave,JSON.stringify(d));}catch(e){}
-  var link=GITHUB_URL+'?chave='+encodeURIComponent(chave)+'&modo=gestor';
+  // Codificar TODOS os dados diretamente no link — sem depender de localStorage
+  var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(d))));
+  var link=GITHUB_URL+'?dados='+encodeURIComponent(encoded)+'&modo=gestor';
   var msg=
     'Olá,\n\n'+
     'Segue o formulário para preenchimento da Avaliação Técnica do(a) candidato(a) '+candidato+' para a vaga de '+cargo+'.\n\n'+
@@ -855,15 +847,17 @@ function salvarPDF(){
 // ── INIT ─────────────────────────────────────────────────────────────────────
 window.onload=function(){
   var params=new URLSearchParams(window.location.search);
-  var chave=params.get('chave');
+  var dados=params.get('dados');
   var modo=params.get('modo');
-  if(chave){
+  if(dados){
     try{
-      // Limpar dados anteriores e carregar os do link
+      // Carregar dados direto do link — ignora localStorage completamente
+      var json=decodeURIComponent(escape(atob(dados)));
+      var d=JSON.parse(json);
+      // Limpar localStorage e salvar dados frescos do link
       localStorage.removeItem('cecal_parecer');
-      var raw=localStorage.getItem(chave);
-      if(raw)localStorage.setItem('cecal_parecer',raw);
-    }catch(e){}
+      localStorage.setItem('cecal_parecer', JSON.stringify(d));
+    }catch(e){console.log('Erro ao carregar dados do link',e);}
   }
   load();
   if(modo==='gestor')setMode('gestor');
