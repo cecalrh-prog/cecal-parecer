@@ -507,7 +507,7 @@ body{font-family:Arial,sans-serif;font-size:13px;color:#333;background:#EAECF4;m
       <button class="act-btn ab-msg" id="btn-msg" onclick="gerarMensagem()">📋 Gerar mensagem para o Gestor</button>
       <button class="act-btn ab-ret" id="btn-ret" onclick="gerarRetorno()" style="display:none">📤 Gerar código de retorno para o RH</button>
       <button class="act-btn ab-pdf" onclick="salvarPDF()">🖨 Salvar PDF</button>
-      <button class="act-btn ab-clear" onclick="limpar()">🗑 Limpar</button>
+      <button class="act-btn ab-clear" onclick="limpar()">🆕 Novo candidato</button>
     </div>
 
     <!-- MENSAGEM PARA GESTOR -->
@@ -701,7 +701,18 @@ function load(){
     updateLideranca();
   }catch(e){}
 }
-function limpar(){if(confirm('Apagar todos os dados?')){localStorage.removeItem('cecal_parecer');location.reload();}}
+function limpar(){
+  if(confirm('Iniciar novo candidato? Todos os dados atuais serão apagados.')){
+    // Apagar TODAS as chaves CECAL do localStorage
+    var keysToRemove = [];
+    for(var i=0;i<localStorage.length;i++){
+      var k = localStorage.key(i);
+      if(k && k.indexOf('cecal')===0) keysToRemove.push(k);
+    }
+    keysToRemove.forEach(function(k){ localStorage.removeItem(k); });
+    location.reload();
+  }
+}
 
 // ── MODO ─────────────────────────────────────────────────────────────────────
 function setMode(mode){
@@ -747,6 +758,14 @@ function gerarMensagem(){
   var candidato=d.candidato||'[candidato]';
   var cargo=d.cargo||'[cargo]';
   var entrevistador=d.entrevistador||'RH CECAL & DADI';
+  // Remover chaves antigas antes de criar nova
+  var keysToRemove=[];
+  for(var i=0;i<localStorage.length;i++){
+    var k=localStorage.key(i);
+    if(k && k.indexOf('cecal_')===0 && k!=='cecal_parecer') keysToRemove.push(k);
+  }
+  keysToRemove.forEach(function(k){localStorage.removeItem(k);});
+  // Criar nova chave com timestamp único
   var chave='cecal_'+candidato.replace(/\s+/g,'_').toLowerCase()+'_'+Date.now();
   try{localStorage.setItem(chave,JSON.stringify(d));}catch(e){}
   var link=GITHUB_URL+'?chave='+encodeURIComponent(chave)+'&modo=gestor';
@@ -840,6 +859,8 @@ window.onload=function(){
   var modo=params.get('modo');
   if(chave){
     try{
+      // Limpar dados anteriores e carregar os do link
+      localStorage.removeItem('cecal_parecer');
       var raw=localStorage.getItem(chave);
       if(raw)localStorage.setItem('cecal_parecer',raw);
     }catch(e){}
